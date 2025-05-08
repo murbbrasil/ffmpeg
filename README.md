@@ -130,37 +130,3 @@ Repositório para armazenar e distribuir bibliotecas Android (.aar) depreciadas 
        implementation 'com.github.murbbrasil:ffmpeg-kit-full-gpl:6.0.LTS'
    }
    ```
-
-## Uso do FFmpeg Kit
-
-### Exemplo Básico
-```java
-import com.arthenica.ffmpegkit.FFmpegKit;
-
-// Converter vídeo para MP4
-FFmpegKit.execute("-i input.mp4 -c:v mpeg4 output.mp4");
-
-// Extrair áudio
-FFmpegKit.execute("-i input.mp4 -vn -c:a copy output.aac");
-```
-
-### Processamento Assíncrono com Callbacks
-```java
-import com.arthenica.ffmpegkit.FFmpegKit;
-import com.arthenica.ffmpegkit.ReturnCode;
-
-FFmpegKit.executeAsync("-i input.mp4 -c:v mpeg4 output.mp4", session -> {
-    if (ReturnCode.isSuccess(session.getReturnCode())) {
-        // Sucesso
-        Log.d("FFmpeg", "Operação completada");
-    } else {
-        // Falha
-        Log.e("FFmpeg", "Erro: " + session.getFailStackTrace());
-    }
-});
-```
-
-## Licença
-
-As bibliotecas seguem suas licenças originais.  
-FFmpeg Kit usa a licença [GNU GPL v3.0](https://ffmpeg.org/legal.html).
