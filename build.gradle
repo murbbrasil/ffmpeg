@@ -1,0 +1,49 @@
+// Configuração para publicação no GitHub Packages
+plugins {
+    id 'maven-publish'
+}
+
+// Carregando propriedades do local.properties
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+group = 'com.github.murbbrasil' // Substituído para a conta da empresa
+version = '1.0.0'
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/murbbrasil/ffmpeg") // Substituído para a conta da empresa
+            credentials {
+                username = localProperties.getProperty('github.username') ?: System.getenv("GITHUB_USERNAME") ?: project.findProperty("gpr.user")
+                password = localProperties.getProperty('github.token') ?: System.getenv("GITHUB_TOKEN") ?: project.findProperty("gpr.key")
+            }
+        }
+    }
+    
+    publications {
+        ffmpegLib(MavenPublication) {
+            artifact file('libs/ffmpeg/ffmpeg-kit-full-gpl-6.0.LTS.aar')
+            groupId = project.group
+            artifactId = 'ffmpeg-kit-full-gpl'
+            version = '6.0.LTS'
+            pom {
+                name = 'FFmpeg Kit Full GPL'
+                description = 'Deprecated FFmpeg library for Android'
+                url = 'https://github.com/murbbrasil/ffmpeg'
+                licenses {
+                    license {
+                        name = 'GPL-3.0'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+                    }
+                }
+            }
+        }
+    }
+} 

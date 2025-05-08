@@ -1,0 +1,6 @@
+# Arquivo de exemplo para configurar as credenciais do GitHub
+# Renomeie este arquivo para gradle.properties e substitua os valores
+
+# Credenciais para GitHub Packages
+gpr.user=seu_username_github
+gpr.key=seu_token_github 
